@@ -1,7 +1,10 @@
 <template>
   <div>
     <NuxtLayout>
-      <NuxtPage/>
+      <NuxtPage />
     </NuxtLayout>
   </div>
 </template>
+<script setup>
+import 'primeicons/primeicons.css'
+</script>
