@@ -13,3 +13,7 @@ body {
     font-family: "Kalameh";
     background: #f7faff;
 }
+
+.p-datatable-tbody>tr>td {
+    text-align: right;
+}
