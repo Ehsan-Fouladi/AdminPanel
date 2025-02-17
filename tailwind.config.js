@@ -12,7 +12,7 @@ export default {
   plugins: [require("tailwindcss-primeui")],
   theme: {
     extend: {
-      screen: {
+      screens: {
         xl: { max: "1536px" },
         lg: { max: "1280px" },
         md: { max: "1024px" },
