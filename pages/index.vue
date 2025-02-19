@@ -1,13 +1,5 @@
 <template>
   <div>
-    <Button label="Hello World" />
+    <DashboardTopBar/>
   </div>
 </template>
-
-<script lang="ts" setup>
-
-</script>
-
-<style>
-
-</style>

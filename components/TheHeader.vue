@@ -8,7 +8,7 @@
     <div class="flex gap-2">
       <Button v-if="isDarkMode" @click="isDarkMode = !isDarkMode" severity="secondary" icon="pi pi-sun" aria-label="Sun" />
       <Button v-else @click="isDarkMode = !isDarkMode" severity="secondary" icon="pi pi-moon" aria-label="Moon" />
-      <Button severity="secondary" icon="pi pi-home" aria-label="Home" />
+      <Button @click="$router.push('/auth')" severity="secondary" icon="pi pi-home" aria-label="Home" />
     </div>
   </header>
 </template>
