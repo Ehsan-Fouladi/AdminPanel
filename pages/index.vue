@@ -1,5 +1,5 @@
 <template>
   <div>
-    <DashboardTopBar/>
+    <DashboardTopBar />
   </div>
 </template>

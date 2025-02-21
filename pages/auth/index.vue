@@ -11,32 +11,44 @@
         <div class="text-surface-900 dark:text-surface-0 text-3xl font-medium mb-4">خوش آمدید</div>
       </div>
 
-      <div>
+      <form @submit.prevent="signIn">
         <label for="phoneNumber" class="text-surface-900 dark:text-surface-0 font-medium mb-2 block">شماره تلفن</label>
-        <InputText id="phoneNumber" type="number" placeholder="شماره تلفن" class="w-full mb-4" />
-
+        <InputText v-model="formData.phoneNumber" id="phoneNumber" type="number" placeholder="شماره تلفن"
+          class="w-full mb-4" />
         <label for="password" class="text-surface-900 dark:text-surface-0 font-medium mb-2 block">گذرواژه</label>
-        <InputText id="password" type="password" placeholder="گذرواژه خود را وارد کنید." class="w-full mb-4" />
-
+        <InputText v-model="formData.password" id="password" type="password" placeholder="گذرواژه خود را وارد کنید."
+          class="w-full mb-4" />
         <div class="flex items-center justify-between mb-5">
           <a class="font-medium no-underline ml-2 text-primary text-right cursor-pointer">تغییر گذرواژه</a>
         </div>
-
-        <Button @click="signIn" label="ورود" icon="pi pi-user !text-xl !leading-none" class="w-full" />
-      </div>
+        <Button type="submit" label="ورود" icon="pi pi-user !text-xl !leading-none" class="w-full" />
+      </form>
     </div>
   </div>
 </template>
 <script setup>
-const router = useRouter()
+import { Login } from '~/services/auth.service';
 
-const signIn = () => {
-  router.push('/')
-}
+const formData = ref({
+  phoneNumber: '',
+  password: '',
+})
 
 definePageMeta({
   layout: 'auth'
 })
 
-
+const signIn = async () => {
+  const result = await Login(formData.value.phoneNumber, formData.value.password)
+  if (result.isSuccess) {
+    if (result.data.isAdmin) {
+      console.log(result);
+      navigateTo('/', { open: { target: "_self" } })
+    }else {
+      console.log("شما ادمین نیستید.");
+    }
+  }else {
+    console.log(result.metaData.message);
+  }
+}
 </script>
