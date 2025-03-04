@@ -28,6 +28,7 @@
 </template>
 <script setup>
 import { Login } from '~/services/auth.service';
+const toast = useToast();
 
 const formData = ref({
   phoneNumber: '',
@@ -45,7 +46,12 @@ const signIn = async () => {
       console.log(result);
       navigateTo('/', { open: { target: "_self" } })
     }else {
-      console.log("شما ادمین نیستید.");
+      toast.add({
+        life: 3000,
+        summary: "خطا",
+        detail: "شما ادمین نیستید.",
+        severity: "error"
+      })
     }
   }else {
     console.log(result.metaData.message);

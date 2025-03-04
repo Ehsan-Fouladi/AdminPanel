@@ -14,6 +14,11 @@ body {
     background: #f7faff;
 }
 
-.p-datatable-tbody>tr>td {
+.p-datatable-tbody > tr > td {
     text-align: right;
+}
+
+.p-toast-close-button {
+    right: unset !important;
+    left: -25%;
 }
