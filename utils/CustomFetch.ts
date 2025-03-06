@@ -12,6 +12,13 @@ export function CustomFetch<T>(
         retry: 0,
     };
     const accountStore = useAccountStore();
+    if(accountStore.isLogin){
+        if (!newConfig.headers){
+            newConfig.headers =  {};
+        }
+        //@ts-ignore
+        newConfig.headers["authorization"] = `Bearer ${accountStore.getToken!}`;
+    }
     const showError = (data: ApiResponse<any>) => {
         if (process.client) {
             if (data.metaData.appStatusCode == AppStatusCode.NotFound) {

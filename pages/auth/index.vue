@@ -29,6 +29,7 @@
 <script setup>
 import { Login } from '~/services/auth.service';
 const toast = useToast();
+const accountStore = useAccountStore()
 
 const formData = ref({
   phoneNumber: '',
@@ -44,6 +45,7 @@ const signIn = async () => {
   if (result.isSuccess) {
     if (result.data.isAdmin) {
       console.log(result);
+      accountStore.setAuthToken(result.data);
       navigateTo('/', { open: { target: "_self" } })
     }else {
       toast.add({
