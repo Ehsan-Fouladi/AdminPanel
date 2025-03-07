@@ -6,15 +6,16 @@ export function CustomFetch<T>(
     url: string,
     config: FetchConfig | undefined = {}
 ): Promise<ApiResponse<T>> {
+    const runTime = useRuntimeConfig()
     const newConfig: FetchConfig = {
-        baseURL: "https://shop-api.codeyad-project.ir/api",
+        baseURL: `${runTime.public.BASE_URL}/api`,
         ...config,
         retry: 0,
     };
     const accountStore = useAccountStore();
-    if(accountStore.isLogin){
-        if (!newConfig.headers){
-            newConfig.headers =  {};
+    if (accountStore.isLogin) {
+        if (!newConfig.headers) {
+            newConfig.headers = {};
         }
         //@ts-ignore
         newConfig.headers["authorization"] = `Bearer ${accountStore.getToken!}`;

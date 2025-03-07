@@ -22,4 +22,9 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
+  runtimeConfig: {
+    public: {
+      BASE_URL: process.env.BASE_URL ?? "https://shop-api.codeyad-project.ir"
+    }
+  }
 });
