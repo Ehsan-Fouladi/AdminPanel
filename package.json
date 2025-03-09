@@ -10,6 +10,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@persian-tools/persian-tools": "^3.6.0",
     "@pinia/nuxt": "^0.10.1",
     "@primevue/themes": "^4.2.5",
     "nuxt": "^3.6.0",
