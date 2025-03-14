@@ -9,6 +9,10 @@
         <i class="pi pi-images"></i>
         مدیریت بنرها
       </NuxtLink>
+      <NuxtLink to="/categorise" class="link">
+        <i class="pi pi-book"></i>
+        مدیریت دسته بندی ها
+      </NuxtLink>
       <NuxtLink to="/users" class="link">
         <i class="pi pi-users"></i>
         مدیریت کاربران

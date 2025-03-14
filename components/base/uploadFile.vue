@@ -3,21 +3,23 @@
     <div class="flex gap-2">
       <FileUpload :choose-label="ChooseLabel" mode="basic" :accept="accept" @select="onFileSelect" customUpload auto
                   severity="secondary" class="p-button-outlined"/>
-      <Button v-if="model" @click="remove" severity="danger" label="حذف فایل" />
+      <Button v-if="model" @click="remove" severity="danger" label="حذف فایل"/>
     </div>
     <img v-if="src" :src="src" alt="Image" class="shadow-md rounded-xl w-full"/>
   </div>
 </template>
 <script setup lang="ts">
-const src = ref('')
 const model = defineModel({
-  type: Blob || null
+  type: Blob || null,
 });
 
-const {ChooseLabel = "انتخاب عکس", accept = "image/*"} = defineProps<{
+const {ChooseLabel = "انتخاب عکس", accept = "image/*", defaultSrc = ''} = defineProps<{
   ChooseLabel?: string,
-  accept?: string
+  accept?: string,
+  defaultSrc?: string
 }>()
+
+const src = ref(defaultSrc)
 
 const onFileSelect = (event: any) => {
   const file = event.files[0];

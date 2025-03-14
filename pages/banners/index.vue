@@ -21,7 +21,7 @@
         <Column field="actions" header="عملیات">
           <template #body="slotProps">
             <div class="flex gap-3">
-              <Button severity="info" as="router-link" label="ویرایش" :to="`/banners/edit/${slotProps.data.id}`"/>
+              <Button severity="info" as="router-link" label="ویرایش" :to="`/banners/edit-${slotProps.data.id}`"/>
               <Button @click="openDeleteDialog(slotProps.data.id)" severity="danger" label="حذف"/>
             </div>
           </template>

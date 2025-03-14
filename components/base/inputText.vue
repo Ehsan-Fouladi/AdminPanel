@@ -28,11 +28,11 @@ const {name, label = null, placeholder = "", type = 'text'} = defineProps<{
 }>()
 
 const {errorMessage, setValue, meta, handleChange, handleBlur} = useField(name, undefined, {
-  initialValue: model[0]
+  initialValue: model.value?.toString()
 })
 
 watch(model, () => {
-  setValue(model.value);
+  setValue(model.value!);
 })
 </script>
 
