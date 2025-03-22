@@ -5,7 +5,8 @@
       <DataTable :loading="isLoading" :value="data" tableStyle="min-width: 50rem">
         <Column field="imageName" header="عکس">
           <template #body="slotProps">
-            <img class="w-[200px] rounded" :src="CategoryImageUrl(slotProps.data.imageName)" :alt="slotProps.data.title">
+            <img class="w-[200px] rounded" :src="CategoryImageUrl(slotProps.data.imageName)"
+                 :alt="slotProps.data.title">
           </template>
         </Column>
         <Column field="title" header="عنوان"/>
@@ -15,7 +16,8 @@
             <div class="flex items-center gap-2 mt-2" v-for="item in slotProps.data.childs" :key="item.id">
               <div class="w-[5px] h-[5px] bg-black rounded-full"></div>
               <p>{{ item.title }}</p>
-              <Button size="small" severity="info" as="router-link" label="ویرایش" :to="`/categorise/edit-${slotProps.data.id}`"/>
+              <Button size="small" severity="info" as="router-link" label="ویرایش"
+                      :to="`/categorise/edit-${slotProps.data.id}`"/>
               <Button size="small" @click="openDeleteDialog(slotProps.data.id)" severity="danger" label="حذف"/>
             </div>
           </template>
@@ -23,8 +25,11 @@
         <Column field="actions" header="عملیات">
           <template #body="slotProps">
             <div class="flex gap-3">
-              <Button severity="info" as="router-link" label="ویرایش" :to="`/categorise/edit-${slotProps.data.id}`"/>
-              <Button @click="openDeleteDialog(slotProps.data.id)" severity="danger" label="حذف"/>
+              <Button size="small" as="router-link" label="افزودن زیر گروه"
+                      :to="`/categorise/add?parentId=${slotProps.data.id}`"/>
+              <Button size="small" severity="info" as="router-link" label="ویرایش"
+                      :to="`/categorise/edit-${slotProps.data.id}`"/>
+              <Button size="small" @click="openDeleteDialog(slotProps.data.id)" severity="danger" label="حذف"/>
             </div>
           </template>
         </Column>
