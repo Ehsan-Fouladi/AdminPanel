@@ -17,8 +17,8 @@
               <div class="w-[5px] h-[5px] bg-black rounded-full"></div>
               <p>{{ item.title }}</p>
               <Button size="small" severity="info" as="router-link" label="ویرایش"
-                      :to="`/categorise/edit-${slotProps.data.id}`"/>
-              <Button size="small" @click="openDeleteDialog(slotProps.data.id)" severity="danger" label="حذف"/>
+                      :to="`/categorise/edit?id=${item.id}`"/>
+              <Button size="small" @click="openDeleteDialog(item.id)" severity="danger" label="حذف"/>
             </div>
           </template>
         </Column>
@@ -28,7 +28,7 @@
               <Button size="small" as="router-link" label="افزودن زیر گروه"
                       :to="`/categorise/add?parentId=${slotProps.data.id}`"/>
               <Button size="small" severity="info" as="router-link" label="ویرایش"
-                      :to="`/categorise/edit-${slotProps.data.id}`"/>
+                      :to="`/categorise/edit?id=${slotProps.data.id}`"/>
               <Button size="small" @click="openDeleteDialog(slotProps.data.id)" severity="danger" label="حذف"/>
             </div>
           </template>
@@ -39,8 +39,8 @@
 </template>
 <script lang="ts" setup>
 import type {Category} from "~/models/categorise/Category";
-import {ServiceGetCategorise} from "~/services/category.service";
 import {CategoryImageUrl} from "~/utils/imagePath";
+import {ServiceDeleteCategorise, ServiceGetCategorise} from "~/services/category.service";
 
 const data: Ref<Category[]> = ref([]);
 const isLoading = ref(true);
@@ -48,9 +48,9 @@ const showDialog = usePrimeFunctions();
 const selectedItem = ref(0);
 
 const deleteFunction = async () => {
-  const response = await ServiceDeleteBanners(selectedItem.value);
+  const response = await ServiceDeleteCategorise(selectedItem.value);
   if (response.isSuccess) {
-    data.value = data.value.filter(f => f.id !== selectedItem.value);
+    await getData()
     selectedItem.value = 0;
     showDialog.successToast();
   }

@@ -61,7 +61,7 @@ const submited = async () => {
         severity: "success",
         life: 4000
       });
-      navigateTo("/categories", {open: {target: "_self"}})
+      navigateTo("/categorise", {open: {target: "_self"}})
     }
   } else {
     const response = await ServiceCreateCategory(data)
@@ -71,7 +71,7 @@ const submited = async () => {
         severity: "success",
         life: 4000
       });
-      navigateTo("/categories", {open: {target: "_self"}})
+      navigateTo("/categorise", {open: {target: "_self"}})
     }
   }
   isLoading.value = false
