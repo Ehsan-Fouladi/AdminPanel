@@ -9,7 +9,7 @@
         <Column field="phoneNumber" header="شماره تلفن"></Column>
         <template #footer>
           <div class="w-full flex justify-center items-center">
-            <BasePagination/>
+<!--            <BasePagination/>-->
           </div>
         </template>
       </DataTable>
