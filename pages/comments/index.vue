@@ -16,7 +16,8 @@
         </Column>
         <Column field="status" header="وضعیت">
           <template #body="slotProps">
-            <span class="text-green-600 text-sm mr-1" v-if="slotProps.data?.status == CommentStatus.Accepted">تایید شده</span>
+            <span class="text-green-600 text-sm mr-1"
+                  v-if="slotProps.data?.status == CommentStatus.Accepted">تایید شده</span>
             <span class="text-orange-600 text-sm mr-1" v-else-if="slotProps.data?.status == CommentStatus.Pending">در انتظار تایید</span>
             <span class="text-red-600 text-sm mr-1" v-else>رد شده</span>
           </template>
@@ -40,7 +41,8 @@
     <Dialog modal v-model:visible="isOpenDialog" style="width: 760px;">
       <template #header>
         <h5 class="text-2xl font-bold">مشاهده دیدگاه
-          <span class="text-green-600 text-sm mr-1" v-if="selectedComment?.status == CommentStatus.Accepted">تایید شده</span>
+          <span class="text-green-600 text-sm mr-1"
+                v-if="selectedComment?.status == CommentStatus.Accepted">تایید شده</span>
           <span class="text-orange-600 text-sm mr-1" v-else-if="selectedComment?.status == CommentStatus.Pending">در انتظار تایید</span>
           <span class="text-red-600 text-sm mr-1" v-else>رد شده</span>
         </h5>
@@ -75,7 +77,7 @@
             {name: 'تایید شده', value: CommentStatus.Accepted.toString()},
             ]"/>
         <div class="flex justify-end mt-4">
-          <Button @click="changeStatus" label="ثبت تغییرات" />
+          <Button @click="changeStatus" label="ثبت تغییرات"/>
         </div>
       </div>
     </Dialog>
@@ -102,11 +104,11 @@ const filterParams = reactive<CommentFilterParams>({
   userId: undefined
 });
 
-onMounted(()=>{
+onMounted(() => {
   getData();
 });
 
-const openDeleteDialog = (comment:Comment)=>{
+const openDeleteDialog = (comment: Comment) => {
   selectedComment.value = comment;
   showDialog.deleteDialog(undefined, undefined, deleteComment);
 };
@@ -120,7 +122,7 @@ const deleteComment = async () => {
   }
 };
 
-const getData = async ()=>{
+const getData = async () => {
   loading.value = true;
   const result = await ServiceGetComment(filterParams);
   if (result.isSuccess) {
@@ -129,31 +131,30 @@ const getData = async ()=>{
   loading.value = false;
 };
 
-watch(filterParams, ()=>{
+watch(filterParams, () => {
   getData();
 });
 
-const changeTake = (newTake:number)=>{
+const changeTake = (newTake: number) => {
   filterParams.pageId = 1;
   filterParams.take = newTake;
 };
 
-const openDialog = (comment:any) => {
+const openDialog = (comment: any) => {
   selectedComment.value = comment;
   selectedStatus.value = comment.status.toString();
   isOpenDialog.value = true;
 };
 
-const changeStatus = async ()=>{
-  //@ts-ignore
-  selectedComment.value.status = parseInt(selectedStatus.value);
-  //@ts-ignore
-  const result = await ServiceChangeStatusComment(selectedComment.value.id, Number(selectedStatus.value));
-  if (result.isSuccess) {
-    showDialog.successToast();
-    getData();
+const changeStatus = async () => {
+  if (selectedComment.value) {
+    const selected = Number(selectedStatus.value)
+    const result = await ServiceChangeStatusComment(selectedComment.value.id, selected);
+    if (result.isSuccess) {
+      selectedComment.value.status = selected
+      showDialog.successToast();
+    }
   }
-  // isOpenDialog.value = false;
 }
 
 definePageMeta({
