@@ -27,7 +27,7 @@
       <Column field="actions" header="عملیات">
         <template #body="slotProps">
           <div class="flex gap-3">
-<!--            <Button @click="openDialog(slotProps.data)" size="small" severity="info" label="نمایش"/>-->
+            <Button as="router-link" :to="`orders/show?id=${slotProps.data.id}`" size="small" severity="info" label="نمایش"/>
 <!--            <Button @click="openDeleteDialog(slotProps.data)" size="small" severity="danger" label="حذف"/>-->
           </div>
         </template>
@@ -45,7 +45,6 @@
 import type {FilterResult} from "~/models/FilterResult";
 import type {OrderFilterParams, OrderListData} from "~/models/order/orderListData";
 import {ServiceGetOrder} from "~/services/order.service";
-import {CommentStatus} from "~/models/comments/Comment";
 import {GetOrderStatusName} from "~/utils/EnumConvertor";
 
 const orderFilterResult: Ref<FilterResult<OrderListData> | null> = ref(null);
