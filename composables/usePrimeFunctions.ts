@@ -31,5 +31,12 @@ export const usePrimeFunctions = () => {
             life: 4000
         });
     };
-    return {deleteDialog, successToast};
+    const errorToast = () => {
+        toast.add({
+            summary: "عملیات ناموفق",
+            severity: 'error',
+            life: 4000
+        });
+    };
+    return {deleteDialog, successToast, errorToast};
 }

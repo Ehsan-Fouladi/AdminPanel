@@ -40,7 +40,8 @@
     </div>
     <h3 class="mt-5 mb-2 font-bold text-xl">محصولات</h3>
     <div v-if="data.data.items">
-      <div class="flex gap-2 items-center justify-between bg-white rounded shadow mb-3 p-2" v-for="item in data.data.items" :key="item.id"
+      <div class="flex gap-2 items-center justify-between bg-white rounded shadow mb-3 p-2"
+           v-for="item in data.data.items" :key="item.id"
            v-memo="item">
         <div class="flex gap-1 items-center">
           <img class="w-[50px] h-[50px] object-cover rounded-md" :src="ProductImageUrl(item.productImageName)"
@@ -54,16 +55,43 @@
         </div>
       </div>
     </div>
+    <Button :loading="loading" v-if="data!.data.status = orderStatus.Finally" severity="warn" @click="sendOrderForUser"
+            label="سفارش برای مشتری ارسال شد"/>
   </div>
 </template>
 <script setup lang="ts">
-import {ServiceGetOrderById} from "~/services/order.service";
-import { ProductImageUrl } from "~/utils/imagePath";
+import {ServiceGetOrderById, ServiceSendOrder} from "~/services/order.service";
+import {ProductImageUrl} from "~/utils/imagePath";
+import {orderStatus} from "~/models/order/orderListData";
 
-const route = useRoute()
-const orderId = route.query.id
+const route = useRoute();
+const router = useRouter();
+const orderId = route.query.id;
+const showDialog = usePrimeFunctions();
 
 const {data, status} = await useAsyncData(`order-${orderId}`, () => ServiceGetOrderById(Number(orderId)));
+if (!data.value || data.value.isSuccess == false || !data.value.data) {
+  if (process.client) {
+    router.push("/orders")
+    showDialog.errorToast()
+  }else {
+    throw createError({
+      statusCode: 404,
+      message: "Not Found"
+    })
+  }
+}
+const loading = ref(false);
+
+const sendOrderForUser = async () => {
+  loading.value = true;
+  const response = await ServiceSendOrder(Number(orderId));
+  if (response.isSuccess) {
+    data.value!.data.status = orderStatus.Shipping;
+    showDialog.successToast();
+  }
+  loading.value = false;
+}
 
 definePageMeta({
   title: "نمایش سفارش"

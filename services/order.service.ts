@@ -11,3 +11,9 @@ export const ServiceGetOrder = (filterParams: OrderFilterParams) => {
 export const ServiceGetOrderById = (orderId: number) => {
     return CustomFetch<OrderData>(`/Order/${orderId}`)
 }
+
+export const ServiceSendOrder = (id: number) => {
+    return CustomFetch<OrderData>(`/Order/SendOrder/${id}`, {
+        method: "PUT",
+    })
+}

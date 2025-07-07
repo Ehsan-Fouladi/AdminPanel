@@ -4,6 +4,7 @@
       <p class="text-lg text-white font-bold">Loading ...</p>
     </div>
     <Toast/>
+    <NuxtLoadingIndicator/>
     <ConfirmDialog></ConfirmDialog>
     <NuxtLayout>
       <NuxtPage />
