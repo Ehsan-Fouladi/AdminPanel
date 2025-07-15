@@ -1,5 +1,6 @@
 <template>
   <div>
+      <Button as="router-link" to="/products/add">افزودن محصول جدید</Button>
     <div class="card">
       <DataTable :loading="loading" :value="comments?.data" tableStyle="min-width: 50rem">
         <Column field="id" header="id"></Column>
